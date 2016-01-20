@@ -8,6 +8,7 @@ var REQUEST_URL = 'http://localhost/wp-rest/wp-json/wp/v2/posts';
 
 'use strict';
 var React = require('react-native');
+
 var {
   AppRegistry,
   Image,
@@ -43,8 +44,22 @@ var MobileNews = React.createClass({
       .done();
   },
   renderStory: function(story) {
+    if(story.featured_image_url) {
+      imageURL = story.featured_image_url
+    }
+    else {
+      imageURL = ''
+    }
+
+    console.log(imageURL);
+    
+
     return (
       <View style={styles.storyContainer}>
+        <Image
+          style={styles.storyThumbnail}
+          source={{uri: imageURL}}
+        />
         <Text style={styles.headline}>
           {story.title.rendered}
         </Text>
@@ -53,6 +68,9 @@ var MobileNews = React.createClass({
         </Text>
       </View>
     );
+  },
+  onEndReached: function() {
+    console.log('end reached');
   },
   render: function() {
     if (!this.state.loaded) {
@@ -69,6 +87,7 @@ var MobileNews = React.createClass({
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderStory}
+          onEndReached={this.onEndReached}
           style={styles.listView}
         />
       </View>
@@ -100,14 +119,15 @@ const styles = StyleSheet.create({
   bodyCopy: {
     fontSize: 18,
   },
-  storyThumbnail: {
-    alignSelf: 'stretch',
-    height: 200,
-    marginBottom: 20,
-  },
   storyContainer: {
     padding: 20,
     marginTop: 20,
+    alignItems: 'stretch',
+  },
+  storyThumbnail: {
+    flex: 1,
+    height: 200,
+    width: 350,
   },
   header: {
     alignSelf: 'stretch',
