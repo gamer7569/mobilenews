@@ -34,3 +34,21 @@ function response_get_feat_img( $object, $request ) {
      return wp_get_attachment_url( get_post_thumbnail_id( $object[ 'id' ] ) );
 }
 ```
+
+In addition, the excerpt can be cleaned up a bit so that it doesn't render a screen reader link on a mobile device.
+```
+/**
+ * Strip the screen reader content out of the excerpt
+ *
+ * @param string $output Original excerpt.
+ *
+ * @return string $output New excerpt
+ */
+function twentyten_custom_excerpt_more( $output ) {
+	$pattern = '/(<span class=\"screen-reader-text\">.*)<\/p>/';
+	$replacement = '';
+
+	return preg_replace($pattern, $replacement, $output);
+}
+add_filter( 'the_excerpt', 'twentyten_custom_excerpt_more' );
+```
