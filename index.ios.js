@@ -21,8 +21,11 @@ var {
 var MobileNews = React.createClass({
   getInitialState: function(){
     return {
-      stories: null,
-    }
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      }),
+      loaded: false,
+    };
   },
   componentDidMount: function() {
     this.fetchData();
@@ -31,8 +34,10 @@ var MobileNews = React.createClass({
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
+        console.log(responseData);
         this.setState({
-          stories: responseData,
+          dataSource: this.state.dataSource.cloneWithRows(responseData),
+          loaded: true,
         });
       })
       .done();
@@ -50,12 +55,17 @@ var MobileNews = React.createClass({
     );
   },
   render: function() {
-    if (!this.state.stories) {
+    if (!this.state.loaded) {
       return this.renderLoadingView();
     }
 
-    var story = this.state.stories[0];
-    return this.renderStory(story);
+     return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderStory}
+        style={styles.listView}
+      />
+    );
   },
   renderLoadingView: function() {
     return (
@@ -90,10 +100,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   storyContainer: {
-    alignItems: 'center',
-    backgroundColor: '#ccc',
-    flex: 1,
-    height: 50,
     padding: 20,
     marginTop: 20,
   }
