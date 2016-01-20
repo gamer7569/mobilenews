@@ -44,22 +44,15 @@ var MobileNews = React.createClass({
       .done();
   },
   renderStory: function(story) {
-    if(story.featured_image_url) {
-      imageURL = story.featured_image_url
-    }
-    else {
-      imageURL = ''
-    }
-
-    console.log(imageURL);
-    
-
     return (
       <View style={styles.storyContainer}>
-        <Image
+        {story.featured_image_url ?
+          <Image
           style={styles.storyThumbnail}
-          source={{uri: imageURL}}
+          source={{uri: story.featured_image_url}}
         />
+        : null}
+        
         <Text style={styles.headline}>
           {story.title.rendered}
         </Text>
