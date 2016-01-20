@@ -6,7 +6,8 @@ A React Native client to consume the WP Rest API
 
 Currently, the client requires an addition of a featured_image_url field to the API response coming from WordPress to avoid having to make an additional API call for each featured image.  This can be configured as follows (this code goes in functions.php or wherever actions are registered in your theme) :
 
-```add_action( 'rest_api_init', 'response_register_feat_img' );
+```
+add_action( 'rest_api_init', 'response_register_feat_img' );
 function response_register_feat_img() {
     register_rest_field( 'post',
         'featured_image_url',
@@ -29,3 +30,4 @@ function response_register_feat_img() {
 function response_get_feat_img( $object, $request ) {
      return wp_get_attachment_url( get_post_thumbnail_id( $object[ 'id' ] ) );
 }
+```
