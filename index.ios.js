@@ -16,6 +16,7 @@ var {
   Text,
   View,
   WebView,
+  StatusBarIOS,
 } = React;
 
 var MobileNews = React.createClass({
@@ -58,12 +59,19 @@ var MobileNews = React.createClass({
       return this.renderLoadingView();
     }
 
+    StatusBarIOS.setStyle(1);
+
      return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderStory}
-        style={styles.listView}
-      />
+      <View style={ styles.container }>
+        <View style={ styles.header }>
+          <Text style={styles.headerText}>Mobile News</Text>
+        </View>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderStory}
+          style={styles.listView}
+        />
+      </View>
     );
   },
   renderLoadingView: function() {
@@ -83,7 +91,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#eee',
-    padding: 5,
     paddingTop: 50,
   },
   headline: {
@@ -101,6 +108,19 @@ const styles = StyleSheet.create({
   storyContainer: {
     padding: 20,
     marginTop: 20,
+  },
+  header: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ca0002',
+    height: 60,
+    marginTop: -50,
+    paddingTop: 10,
+  },
+  headerText: {
+    color: 'white',
+    fontSize: 24,
   }
 });
 
