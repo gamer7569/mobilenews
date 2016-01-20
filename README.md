@@ -1,6 +1,9 @@
 # Mobile News
 A React Native client to consume the WP Rest API.  Currently only iOS.  Android version will be added when iOS working prototype is complete.
 
+##Setup
+Local setup is the same as the [standard setup for react native](https://facebook.github.io/react-native/docs/getting-started.html#content).
+
 
 ##Modifications to the WordPress install
 
