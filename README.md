@@ -20,7 +20,7 @@ function response_register_feat_img() {
 }
 
 /**
- * Get the value of the "starship" field
+ * Get the URL for the featured image for a given post
  *
  * @param array $object Details of current post.
  * @param WP_REST_Request $request Current request
