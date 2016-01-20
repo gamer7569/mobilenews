@@ -9,6 +9,8 @@ var REQUEST_URL = 'http://localhost/wp-rest/wp-json/wp/v2/posts';
 'use strict';
 var React = require('react-native');
 
+var HTMLView = require('react-native-htmlview');
+
 var {
   AppRegistry,
   Image,
@@ -56,9 +58,10 @@ var MobileNews = React.createClass({
         <Text style={styles.headline}>
           {story.title.rendered}
         </Text>
-        <Text style={styles.bodyCopy}>
-          {story.excerpt.rendered}
-        </Text>
+        <HTMLView
+          value={story.excerpt.rendered}
+          stylesheet={styles}
+        />
       </View>
     );
   },
