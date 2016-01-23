@@ -137,6 +137,9 @@ const styles = StyleSheet.create({
   headerText: {
     color: 'white',
     fontSize: 24,
+  },
+  testStyles: {
+    color: 'white',
   }
 });
 
