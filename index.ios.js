@@ -4,7 +4,7 @@
  */
 
 
-var REQUEST_URL = 'http://localhost/wp-rest/wp-json/wp/v2/posts';
+var REQUEST_URL = 'http://localhost/wp-rest/wp-json/wp/v2/posts?filter[paged]=';
 
 'use strict';
 var React = require('react-native');
@@ -29,18 +29,22 @@ var MobileNews = React.createClass({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
+      page: 1,
     };
   },
   componentDidMount: function() {
     this.fetchData();
   },
   fetchData: function() {
-    fetch(REQUEST_URL)
+    var currentUrl = REQUEST_URL + this.state.page;
+    
+    fetch(currentUrl)
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData),
           loaded: true,
+          page: this.state.page + 1
         });
       })
       .done();
@@ -66,7 +70,7 @@ var MobileNews = React.createClass({
     );
   },
   onEndReached: function() {
-    console.log('end reached');
+    this.fetchData();
   },
   render: function() {
     if (!this.state.loaded) {
