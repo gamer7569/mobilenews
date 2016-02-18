@@ -1,6 +1,6 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * Sample React Native App for WP
+ * https://github.com/kkoppenhaver/mobilenews
  */
 
 
